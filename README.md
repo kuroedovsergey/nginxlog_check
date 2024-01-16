@@ -1,7 +1,7 @@
 # nginxlog_check
 Две версии скрипта для парсинга лога веб-сервера Nginx. 
 
-##check.sh
+## check.sh
 Входные параметры скрипта: домен и дата лога.
 
 Скрипт проходил по всем логам в директории `/var/log/nginx`, получая информацию о количество запросов, поступивших к веб-серверу для домена за указанную дату.
@@ -30,7 +30,7 @@ IP-адрес: 111.111.111.111
     231 / "-" "jetmon/1.0 (Jetpack Site Uptime Monitor by
 ```
 
-##check.py
+## check.py
 Входные параметры скрипта: домен и дата лога. 
 
 Скрипт вычисляет разницу в днях, после чего открывает необходмые логи.
@@ -61,4 +61,9 @@ IP-адрес: [111.111.111.111]
 User-Agent IP-адреса:
 [SiteUptimeMonitorbyWordPress.com)""-"1.243-1.243]
 
+```
+## Деплой
+Загрузка скрипта на сервер: 
+```
+for server in server1 server2 server3; do for num in {1..260}; do echo "Сервер $server$num:"; scp ./check.py $USER@$server$num:/home/$USER/ 2> /dev/null && ssh $server$num "chmod +x /home/$USER/check.py" 2> /dev/null && ssh $server$num "echo \"alias check='python3 /home/$USER/check.py'\" >> /home/$USER/.bashrc" 2> /dev/null; done done
 ```
